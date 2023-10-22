@@ -1,0 +1,25 @@
+#!/bin/bash
+if [ ! "$(command -v docker)" ]; then
+    echo "docker could not be found"
+    exit 0
+fi
+
+WORKDING_DIR="$(pwd)"
+CURRENT_DIR=$(basename $(pwd))
+
+CONTAINER_RUNTIME_NAME="$CURRENT_DIR-openjdk-17-core-sdk"
+
+docker run -d -it --rm \
+    -v "$WORKDING_DIR"/opt:/opt \
+    --name $CONTAINER_RUNTIME_NAME \
+    openjdk:21
+
+
+docker exec -it  \
+    -w /app \
+    "$CONTAINER_RUNTIME_NAME" /bin/bash -c || {
+        docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
+    }
+
+
+docker stop "$CONTAINER_RUNTIME_NAME"
