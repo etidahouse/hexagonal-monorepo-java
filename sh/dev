@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Define the relative path to the script
+RELATIVE_PATH=$1
+
+CURRENT_DIR=$(cd "$(dirname "$0")" && pwd)
+CURRENT_DIR=${CURRENT_DIR%/*}
+
+echo $CURRENT_DIR
+
+# Construct the full path to the script
+SCRIPT_FULL_PATH="$CURRENT_DIR/$RELATIVE_PATH/sh/dev"
+
+# Check if the script file exists
+if [ -f "$SCRIPT_FULL_PATH" ]; then
+    # Run the script
+    sh "$SCRIPT_FULL_PATH"
+else
+    echo "Error: File '$SCRIPT_FULL_PATH' does not exist."
+fi
