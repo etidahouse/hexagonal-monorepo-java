@@ -6,10 +6,8 @@ import entities.User;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class UsersQueries {
+public interface UsersQueries {
 
-    public interface SelectUsers {
-        CompletableFuture<List<User>> execute() throws UnknownFailureException;
-    }
+    CompletableFuture<List<User>> selectUsers() throws UnknownFailureException;
 
 }

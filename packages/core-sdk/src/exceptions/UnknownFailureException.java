@@ -6,4 +6,8 @@ public class UnknownFailureException extends Exception {
         super(message);
     }
 
+    public UnknownFailureException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
 }
