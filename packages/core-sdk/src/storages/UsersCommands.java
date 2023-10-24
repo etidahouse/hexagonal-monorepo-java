@@ -7,14 +7,10 @@ import entities.User;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class UsersCommands {
+public interface UsersCommands {
 
-    public interface InsertUser {
-        CompletableFuture<Void> execute(User user) throws UnknownFailureException;
-    }
+    CompletableFuture<Void> insertUser(User user) throws UnknownFailureException;
 
-    public interface UpdateUser {
-        CompletableFuture<Void> execute(User user) throws NotFoundUserException, UnknownFailureException;
-    }
+    CompletableFuture<Void> updateUser(User user) throws NotFoundUserException, UnknownFailureException;
 
 }
