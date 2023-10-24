@@ -9,7 +9,7 @@ CURRENT_DIR=${CURRENT_DIR%/*}
 echo $CURRENT_DIR
 
 # Construct the full path to the script
-SCRIPT_FULL_PATH="$CURRENT_DIR/$RELATIVE_PATH/sh/dev"
+SCRIPT_FULL_PATH="$CURRENT_DIR/$RELATIVE_PATH/sh/build"
 
 # Check if the script file exists
 if [ -f "$SCRIPT_FULL_PATH" ]; then

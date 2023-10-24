@@ -1,3 +1,6 @@
+.m2
+build/
+
 # Misc
 .DS_Store
 
