@@ -16,8 +16,8 @@ docker run -d -it --rm \
 
 
 docker exec -it  \
-    -w /app \
-    "$CONTAINER_RUNTIME_NAME" /bin/bash -c || {
+    -w /opt \
+    "$CONTAINER_RUNTIME_NAME" /bin/bash || {
         docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
     }
 
