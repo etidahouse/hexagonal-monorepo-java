@@ -1,13 +1,12 @@
 # Java Hexagonal Architecture Monorepo
 
 ## TODO
-- release maven core-sdk
-- create packages/mongodb-sdk
-- setup mongodb dev docker
+- release core-sdk to maven
 - implement users storage
-- release maven sql-sdk
+- release sql-sdk to maven
 - create services/gateway
 - deploy an rest api to fetch users with swagger doc
+- release gateway to maven
 - create an docker-compose or terraform deploy setup
 - setup github actions to release automatically
 - add order entity
