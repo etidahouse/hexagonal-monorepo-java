@@ -4,6 +4,7 @@ if [ ! "$(command -v docker)" ]; then
     exit 0
 fi
 
+PROJECT_DIR="$(pwd)"
 WORKDING_DIR="$(pwd)"
 CURRENT_DIR=$(basename $(pwd))
 
@@ -11,6 +12,7 @@ CONTAINER_RUNTIME_NAME="$CURRENT_DIR-openjdk-17-core-sdk"
 
 docker run -d -it --rm \
     -v "$WORKDING_DIR"/opt:/opt \
+    -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     --name $CONTAINER_RUNTIME_NAME \
     openjdk:21
 

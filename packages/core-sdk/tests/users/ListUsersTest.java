@@ -8,12 +8,11 @@ import org.mockito.Mockito;
 import entities.User;
 import exceptions.UnknownFailureException;
 import storages.UsersQueries;
+import users.ListUsers;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class ListUsersTest {
 
@@ -25,34 +24,28 @@ public class ListUsersTest {
         List<User> mockUsersList = new ArrayList<>();
         mockUsersList.add(new User(UUID.randomUUID(), "username", "email"));
         mockUsersList.add(new User(UUID.randomUUID(), "user-name", "em-ail"));
-        CompletableFuture<List<User>> mockFuture = CompletableFuture.completedFuture(mockUsersList);
-        Mockito.when(mockUsersQueries.selectUsers()).thenReturn(mockFuture);
 
-        ListUsers listUsers = new ListUsers();
-        List<User> result = listUsers.execute(mockUsersQueries);
+        Mockito.when(mockUsersQueries.listUsers()).thenReturn(mockUsersList);
+        
+        List<User> result = ListUsers.execute(mockUsersQueries);
 
         assertEquals(2, result.size());
 
         assertEquals(mockUsersList.get(0), result.get(0));
         assertEquals(mockUsersList.get(1), result.get(1));
 
-        Mockito.verify(mockUsersQueries, Mockito.times(1)).selectUsers();
+        Mockito.verify(mockUsersQueries, Mockito.times(1)).listUsers();
     }
+
 
     @Test
     public void testListUsers_UnknownFailureException() throws UnknownFailureException {
         UsersQueries mockUsersQueries = Mockito.mock(UsersQueries.class);
 
-        CompletableFuture<List<User>> mockFuture = new CompletableFuture<>();
-        mockFuture.completeExceptionally(new ExecutionException(new UnknownFailureException("Unknown failure occurred")));
+        Mockito.when(mockUsersQueries.listUsers()).thenThrow(new UnknownFailureException("Unknown failure occurred"));
 
-        Mockito.when(mockUsersQueries.selectUsers()).thenReturn(mockFuture);
-
-        ListUsers listUsers = new ListUsers();
-
-        assertThrows(UnknownFailureException.class, () -> 
-            listUsers.execute(mockUsersQueries),
-            "Unknown failure occurred"
+        assertThrows(UnknownFailureException.class, () ->
+                ListUsers.execute(mockUsersQueries)
         );
     }
 
