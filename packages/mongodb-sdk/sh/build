@@ -15,4 +15,4 @@ docker run -it --rm \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -w /opt/maven \
     maven:3.8.5-openjdk-17-slim \
-    mvn test
+    mvn clean install

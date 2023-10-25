@@ -1,0 +1,27 @@
+#!/bin/bash
+if [ ! "$(command -v docker)" ]; then
+    echo "docker could not be found"
+    exit 0
+fi
+
+PROJECT_DIR="$(pwd)"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKDING_DIR="$(dirname "$CURRENT_DIR")"
+
+CONTAINER_RUNTIME_NAME="hexagonal-monorepo-java-mongodb"
+
+docker run -d -it --rm \
+    -v "$WORKDING_DIR":/opt \
+    -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
+    --name $CONTAINER_RUNTIME_NAME \
+    "$( "$CURRENT_DIR/dev-image-tag" )"
+
+
+docker exec -it  \
+    -w /opt \
+    "$CONTAINER_RUNTIME_NAME" /bin/bash || {
+        docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
+    }
+
+
+docker stop "$CONTAINER_RUNTIME_NAME"
