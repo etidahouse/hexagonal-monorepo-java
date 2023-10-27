@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface UsersCommands {
 
-    Void storeUser(User user) throws UnknownFailureException;
+    public static final String usersTableName = "users";
 
-    Void updateUser(User user) throws NotFoundUserException, UnknownFailureException;
+    void storeUser(User user) throws UnknownFailureException;
 
 }
