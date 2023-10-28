@@ -3,7 +3,6 @@
 ## TODO
 - release core-sdk to maven
 - release sql-sdk to maven
-- create services/gateway
 - deploy an rest api to fetch users with swagger doc
 - release gateway to maven
 - create an docker-compose or terraform deploy setup
