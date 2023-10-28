@@ -11,3 +11,5 @@
 - add order entity
 - implement orders storage
 - test to deploy gateway with zuul api gateway and eureka microservices
+- add shellcheck
+- add integration testing env

@@ -14,8 +14,7 @@ docker run -d -it --rm \
     -v "$WORKDING_DIR":/opt \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     --name $CONTAINER_RUNTIME_NAME \
-    "$( "$CURRENT_DIR/dev-image-tag" )" \
-    mongod --auth --port 27017
+    "$( "$CURRENT_DIR/dev-image-tag" )"
 
 
 docker exec -it  \
