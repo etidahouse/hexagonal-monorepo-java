@@ -1,9 +1,10 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
 
     private UUID id;
     private String username;
@@ -52,6 +53,15 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, email);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 
 }
