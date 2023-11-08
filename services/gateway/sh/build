@@ -11,7 +11,6 @@ WORKDING_DIR="$(dirname "$CURRENT_DIR")"
 
 docker run -it --rm \
     --name maven-3.8.5-openjdk-17-slim \
-    --env-file "$CURRENT_DIR"/.env \
     -v "$WORKDING_DIR":/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -w /opt/maven \

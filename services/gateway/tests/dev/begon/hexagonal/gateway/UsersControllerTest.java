@@ -61,8 +61,7 @@ public class UsersControllerTest {
                 ));
 
 
-        mockMvc.perform(get("/api/users")
-            )
+        mockMvc.perform(get("/api/users"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$[0].username").value("username1"))
