@@ -1,8 +1,8 @@
-package storages;
+package dev.begon.hexagonal.core.sdk.storages;
 
-import exceptions.NotFoundUserException;
-import exceptions.UnknownFailureException;
-import entities.User;
+import dev.begon.hexagonal.core.sdk.exceptions.NotFoundUserException;
+import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
+import dev.begon.hexagonal.core.sdk.entities.User;
 
 import java.util.List;
 import java.util.UUID;

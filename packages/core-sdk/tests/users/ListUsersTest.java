@@ -5,10 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.mockito.Mockito;
 
-import entities.User;
-import exceptions.UnknownFailureException;
-import storages.UsersQueries;
-import users.ListUsers;
+import dev.begon.hexagonal.core.sdk.entities.User;
+import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
+import dev.begon.hexagonal.core.sdk.storages.UsersQueries;
+import dev.begon.hexagonal.core.sdk.users.ListUsers;
+
 
 import java.util.ArrayList;
 import java.util.List;

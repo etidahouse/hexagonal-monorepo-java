@@ -1,4 +1,6 @@
-import entities.User;
+package dev.begon.mongodb.sdk;
+
+import dev.begon.hexagonal.core.sdk.entities.User;
 
 import java.util.UUID;
 

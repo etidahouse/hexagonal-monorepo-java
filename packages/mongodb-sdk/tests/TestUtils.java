@@ -5,7 +5,8 @@ import static com.mongodb.client.model.Filters.eq;
 
 import org.bson.conversions.Bson;
 
-import storages.UsersCommands;
+import dev.begon.hexagonal.core.sdk.storages.UsersCommands;
+import dev.begon.mongodb.sdk.MongoStorage;
 
 public class TestUtils {
     

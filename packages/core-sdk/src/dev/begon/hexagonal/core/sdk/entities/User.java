@@ -1,4 +1,4 @@
-package entities;
+package dev.begon.hexagonal.core.sdk.entities;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,6 +9,8 @@ public class User implements Serializable {
     private UUID id;
     private String username;
     private String email;
+
+    public User() { }
 
     public User(UUID id, String username, String email) {
         this.id = id;

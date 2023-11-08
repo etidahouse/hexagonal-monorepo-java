@@ -3,14 +3,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.UUID;
 
-import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.MongoDatabase;
 
-import entities.User;
-import exceptions.NotFoundUserException;
-import exceptions.UnknownFailureException;
-
-import storages.UsersCommands;
+import dev.begon.hexagonal.core.sdk.entities.User;
+import dev.begon.hexagonal.core.sdk.exceptions.NotFoundUserException;
+import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
+import dev.begon.mongodb.sdk.MongoUsersCommands;
+import dev.begon.mongodb.sdk.MongoUsersQueries;
 
 public class MongoUsersCommandsTest {
     

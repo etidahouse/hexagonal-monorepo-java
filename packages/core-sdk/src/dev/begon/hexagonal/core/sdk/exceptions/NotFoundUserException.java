@@ -1,4 +1,4 @@
-package exceptions;
+package dev.begon.hexagonal.core.sdk.exceptions;
 
 import java.util.UUID;
 
