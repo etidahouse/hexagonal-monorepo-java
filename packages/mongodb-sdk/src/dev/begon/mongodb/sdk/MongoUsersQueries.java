@@ -1,6 +1,7 @@
-import storages.UsersQueries;
+package dev.begon.mongodb.sdk;
 
-import entities.User;
+import dev.begon.hexagonal.core.sdk.storages.UsersQueries;
+import dev.begon.hexagonal.core.sdk.entities.User;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
@@ -9,8 +10,8 @@ import com.mongodb.client.FindIterable;
 
 import org.bson.Document;
 
-import exceptions.NotFoundUserException;
-import exceptions.UnknownFailureException;
+import dev.begon.hexagonal.core.sdk.exceptions.NotFoundUserException;
+import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
 
 import java.util.ArrayList;
 import java.util.List;

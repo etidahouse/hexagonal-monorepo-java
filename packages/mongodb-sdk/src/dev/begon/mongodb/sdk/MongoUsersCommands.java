@@ -1,11 +1,10 @@
-import storages.UsersCommands;
+package dev.begon.mongodb.sdk;
 
-import entities.User;
+import dev.begon.hexagonal.core.sdk.storages.UsersCommands;
+import dev.begon.hexagonal.core.sdk.entities.User;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.ReplaceOptions;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -13,7 +12,7 @@ import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import exceptions.UnknownFailureException;
+import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
 
 
 public class MongoUsersCommands implements UsersCommands {

@@ -1,3 +1,5 @@
+package dev.begon.mongodb.sdk;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.MongoClientSettings;
@@ -8,7 +10,6 @@ import com.mongodb.ServerAddress;
 import org.bson.UuidRepresentation;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class MongoStorage {
 

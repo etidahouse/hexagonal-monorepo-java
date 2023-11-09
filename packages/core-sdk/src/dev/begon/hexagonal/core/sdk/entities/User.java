@@ -1,13 +1,16 @@
-package entities;
+package dev.begon.hexagonal.core.sdk.entities;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
-public class User {
+public class User implements Serializable {
 
     private UUID id;
     private String username;
     private String email;
+
+    public User() { }
 
     public User(UUID id, String username, String email) {
         this.id = id;
@@ -52,6 +55,15 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, email);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 
 }
