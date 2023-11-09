@@ -1,6 +1,8 @@
 package dev.begon.hexagonal.gateway;
 
 import dev.begon.hexagonal.core.sdk.entities.User;
+import dev.begon.hexagonal.core.sdk.exceptions.NotFoundUserException;
+import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -70,6 +72,17 @@ public class UsersControllerTest {
             .andExpect(jsonPath("$[1].email").value("email2"))
             .andReturn();
     }
+
+    @Test
+    public void testGetAllUsers_UnknownFailureException() throws Exception {
+        Mockito.when(usersQueries.listUsers()).thenThrow(new UnknownFailureException("Something went wrong"));
+
+        mockMvc.perform(get("/api/users"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.error").value("UnknownFailureException"))
+                .andExpect(jsonPath("$.message").value("Something went wrong"));
+    }
  
     @Test
     public void testRetrievedUserById_Success() throws Exception {
@@ -85,6 +98,32 @@ public class UsersControllerTest {
                 .andExpect(jsonPath("$.username").value("username1"))
                 .andExpect(jsonPath("$.email").value("email1"))
                 .andReturn();
+    }
+
+    @Test
+    public void testRetrievedUserById_UnknownFailureException() throws Exception {
+        UUID userId = UUID.randomUUID();
+        Mockito.when(usersQueries.getUserById(userId)).thenThrow(new UnknownFailureException("Something went wrong"));
+
+        mockMvc.perform(get("/api/users/{userId}", userId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.error").value("UnknownFailureException"))
+                .andExpect(jsonPath("$.message").value("Something went wrong"));
+    }
+
+    @Test
+    public void testRetrievedUserById_NotFoundUserException() throws Exception {
+        UUID userId = UUID.randomUUID();
+        Mockito.when(usersQueries.getUserById(userId)).thenThrow(new NotFoundUserException(userId));
+
+        mockMvc.perform(get("/api/users/{userId}", userId)
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.error").value("NotFoundUserException"))
+                .andExpect(jsonPath("$.message").value("User with " + userId + " not found."));
     }
 
 }
