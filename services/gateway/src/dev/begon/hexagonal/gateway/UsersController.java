@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import dev.begon.hexagonal.core.sdk.entities.User;
+import dev.begon.hexagonal.core.sdk.exceptions.NotFoundUserException;
 import dev.begon.hexagonal.core.sdk.storages.UsersQueries;
 import dev.begon.hexagonal.core.sdk.users.ListUsers;
 import dev.begon.hexagonal.core.sdk.users.RetrieveUser;
@@ -38,8 +39,7 @@ public class UsersController {
             return ResponseEntity.ok(objectMapper.writeValueAsString(users));
         } catch (Exception e) {
             logger.error("An error occurred during the test:", e);
-            ErrorResponse errorResponse = new ErrorResponse(e.getClass().getSimpleName(), e.getMessage());
-            return ResponseEntity.status(500).body(objectMapper.writeValueAsString(errorResponse));
+            return ResponseEntity.status(500).body(objectMapper.writeValueAsString(new ErrorResponse(e)));
         }
     }
 
@@ -48,10 +48,11 @@ public class UsersController {
         try {
             User user = RetrieveUser.execute(userId, usersQueries);
             return ResponseEntity.ok(objectMapper.writeValueAsString(user));
+        } catch (NotFoundUserException e) {
+            return ResponseEntity.status(404).body(objectMapper.writeValueAsString(new ErrorResponse(e)));
         } catch (Exception e) {
             logger.error("An error occurred during the test:", e);
-            ErrorResponse errorResponse = new ErrorResponse(e.getClass().getSimpleName(), e.getMessage());
-            return ResponseEntity.status(500).body(objectMapper.writeValueAsString(errorResponse));
+            return ResponseEntity.status(500).body(objectMapper.writeValueAsString(new ErrorResponse(e)));
         }
     }
 
