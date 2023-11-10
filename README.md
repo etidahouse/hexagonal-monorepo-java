@@ -2,7 +2,7 @@
 
 ## TODO
 - release core-sdk to maven
-- release sql-sdk to maven
+- release mongodb-sdk to maven
 - release gateway to maven
 - setup github actions to build automatically when PR is ready to review
 - setup github actions to release automatically when PR is merged
