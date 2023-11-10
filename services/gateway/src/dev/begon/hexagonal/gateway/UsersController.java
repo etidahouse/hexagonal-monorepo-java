@@ -15,6 +15,11 @@ import dev.begon.hexagonal.core.sdk.exceptions.NotFoundUserException;
 import dev.begon.hexagonal.core.sdk.storages.UsersQueries;
 import dev.begon.hexagonal.core.sdk.users.ListUsers;
 import dev.begon.hexagonal.core.sdk.users.RetrieveUser;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,6 +37,11 @@ public class UsersController {
     private static final Logger logger = LoggerFactory.getLogger(UsersController.class);
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    @Operation(summary = "Get all users")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "500", description = "Unknown failure", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> getAllUsers() throws JsonProcessingException {
         try {
@@ -43,6 +53,12 @@ public class UsersController {
         }
     }
 
+    @Operation(summary = "Get user by ID")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class))),
+            @ApiResponse(responseCode = "404", description = "User not found", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "500", description = "Unknown failure", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorResponse.class)))
+    })
     @GetMapping(value = "{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> retrievedUserById(@PathVariable UUID userId) throws JsonProcessingException {
         try {
