@@ -120,7 +120,7 @@ public class UsersControllerTest {
 
         mockMvc.perform(get("/api/users/{userId}", userId)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isInternalServerError())
+                .andExpect(status().isNotFound())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.error").value("NotFoundUserException"))
                 .andExpect(jsonPath("$.message").value("User with " + userId + " not found."));

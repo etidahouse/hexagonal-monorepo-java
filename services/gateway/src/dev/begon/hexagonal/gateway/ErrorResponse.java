@@ -10,6 +10,11 @@ public class ErrorResponse {
         this.message = message;
     }
 
+    public ErrorResponse(Exception e) {
+        this.error = e.getClass().getSimpleName();
+        this.message = e.getMessage();
+    }
+
     public String getError() {
         return error;
     }
