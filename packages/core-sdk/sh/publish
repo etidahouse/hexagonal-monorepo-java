@@ -20,7 +20,7 @@ if [ ! "$(command -v docker)" ]; then
 fi
 
 
-echo "$DIRECTORY_NAME" Publishing package...
+echo "$DIRECTORY_NAME" Publishing...
 
 
 docker run -it --rm \
