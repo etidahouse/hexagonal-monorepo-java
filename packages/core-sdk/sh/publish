@@ -6,12 +6,12 @@ fi
 
 PROJECT_DIR="$(pwd)"
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKDING_DIR="$(dirname "$CURRENT_DIR")"
+WORKING_DIR="$(dirname "$CURRENT_DIR")"
 
 
 docker run -it --rm \
     --name maven-3.8.5-openjdk-17-slim \
-    -v "$WORKDING_DIR":/opt/maven/ \
+    -v "$WORKING_DIR":/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -w /opt/maven \
     -e GITHUB_USERNAME="$GITHUB_USERNAME" \
