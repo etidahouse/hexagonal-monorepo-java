@@ -14,5 +14,7 @@ docker run -it --rm \
     -v "$WORKING_DIR":/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -w /opt/maven \
+    -e GITHUB_USERNAME="$GITHUB_USERNAME" \
+    -e GITHUB_TOKEN="$GITHUB_TOKEN" \
     maven:3.8.5-openjdk-17-slim \
-    mvn test
+    mvn clean deploy
