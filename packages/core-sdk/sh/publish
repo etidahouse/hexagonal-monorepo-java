@@ -13,7 +13,22 @@ if [[ -n $(git status -s) ]]; then
     exit 1
 fi
 
-# Continue with Docker run if there are no uncommitted changes or unpushed commits
+# Assuming pom.xml is in the root of the project
+POM_FILE=pom.xml
+
+# Extract versions using Maven commands
+MAIN_VERSION=$(mvn help:evaluate -Dexpression=project.version -f "$POM_FILE" -DforceStdout -Dgit.ref=origin/main)
+CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -f "$POM_FILE" -DforceStdout -Dgit.ref=HEAD)
+
+# Compare versions
+if [ "$MAIN_VERSION" != "$CURRENT_VERSION" ]; then
+    echo "The version in $POM_FILE has changed. Continuing with Maven deploy..."
+else
+    echo "The version in $POM_FILE is the same. Exiting without Maven deploy."
+    exit 0
+fi
+
+
 if [ ! "$(command -v docker)" ]; then
     echo "docker could not be found"
     exit 0
