@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Define the relative path to the script
+RELATIVE_PATH=$1
+
+CURRENT_DIR=$(cd "$(dirname "$0")" && pwd)
+CURRENT_DIR=${CURRENT_DIR%/*}
+
+"$CURRENT_DIR"/publish packages/core-sdk

@@ -1,12 +1,32 @@
 #!/bin/bash
+
+PROJECT_DIR="$(pwd)"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKING_DIR="$(dirname "$CURRENT_DIR")"
+DIRECTORY_NAME=$(basename "$WORKING_DIR")
+
+echo "$DIRECTORY_NAME"
+
+# Check for uncommitted changes
+if [[ -n $(git status -s) ]]; then
+    echo "There are uncommitted changes. Exiting."
+    exit 1
+fi
+
+# Check for unpushed commits
+if [[ -n $(git log --branches --not --remotes) ]]; then
+    echo "There are unpushed commits. Exiting."
+    exit 1
+fi
+
+# Continue with Docker run if there are no uncommitted changes or unpushed commits
 if [ ! "$(command -v docker)" ]; then
     echo "docker could not be found"
     exit 0
 fi
 
-PROJECT_DIR="$(pwd)"
-CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKING_DIR="$(dirname "$CURRENT_DIR")"
+
+echo "$DIRECTORY_NAME" Publishing package...
 
 
 docker run -it --rm \
