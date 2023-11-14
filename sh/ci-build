@@ -3,12 +3,12 @@
 # Define the relative path to the script
 RELATIVE_PATH=$1
 
-CURRENT_DIR=$(cd "$(dirname "$0")" && pwd)
-CURRENT_DIR=${CURRENT_DIR%/*}
+# Get the absolute path of the directory containing this script
+SCRIPT_DIR=$(dirname "$0")
 
-# Construct the full path to the script
-SCRIPT_FULL_PATH="$CURRENT_DIR/$RELATIVE_PATH/sh"
-
+# Construct the full path to the script using the provided relative path
+SCRIPT_FULL_PATH="$SCRIPT_DIR/$RELATIVE_PATH"
 
 echo "core-sdk - Change detected. Running build..."
-"$SCRIPT_FULL_PATH"/build packages/core-sdk
+# Execute the script using the constructed full path
+"$SCRIPT_FULL_PATH/build" packages/core-sdk
