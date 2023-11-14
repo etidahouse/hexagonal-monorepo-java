@@ -1,12 +1,39 @@
 #!/bin/bash
+
+PROJECT_DIR="$(pwd)"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKING_DIR="$(dirname "$CURRENT_DIR")"
+DIRECTORY_NAME=$(basename "$WORKING_DIR")
+
+
+echo "$DIRECTORY_NAME"
+
+
+CHANGES_COUNT="$( git diff origin/main HEAD "$WORKING_DIR"/pom.xml | grep -c version || echo "" )"
+
+
+# Compare versions
+if [ "$CHANGES_COUNT" != "0" ]; then
+    echo "Change detected. Continuing with Maven deploy..."
+else
+    echo "Change detected. Exiting without Maven deploy."
+    exit 0
+fi
+
+# Check for uncommitted changes
+if [[ -n $(git status "$WORKING_DIR" -s) ]]; then
+    echo "There are uncommitted changes. Exiting "$DIRECTORY_NAME""
+    exit 1
+fi
+
+
 if [ ! "$(command -v docker)" ]; then
     echo "docker could not be found"
     exit 0
 fi
 
-PROJECT_DIR="$(pwd)"
-CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKING_DIR="$(dirname "$CURRENT_DIR")"
+
+echo "$DIRECTORY_NAME" Publishing...
 
 
 docker run -it --rm \

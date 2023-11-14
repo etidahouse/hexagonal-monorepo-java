@@ -6,7 +6,6 @@ RELATIVE_PATH=$1
 CURRENT_DIR=$(cd "$(dirname "$0")" && pwd)
 CURRENT_DIR=${CURRENT_DIR%/*}
 
-echo $CURRENT_DIR
 
 # Construct the full path to the script
 SCRIPT_FULL_PATH="$CURRENT_DIR/$RELATIVE_PATH/sh/publish"
