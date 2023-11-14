@@ -11,4 +11,4 @@ SCRIPT_FULL_PATH="$SCRIPT_DIR/$RELATIVE_PATH"
 
 echo "core-sdk - Change detected. Running build..."
 # Execute the script using the constructed full path
-"$SCRIPT_FULL_PATH/build" packages/core-sdk
+"$SCRIPT_FULL_PATH/ci-build" packages/core-sdk

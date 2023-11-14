@@ -14,7 +14,7 @@ echo "$WORKING_DIR"
 
 docker run --rm \
     --name maven-3.8.5-openjdk-17-slim \
-    -v "$CURRENT_DIR":/opt/maven/ \
+    -v "$CURRENT_DIR"/packages/core-sdk/:/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -w /opt/maven \
     maven:3.8.5-openjdk-17-slim \
