@@ -21,7 +21,7 @@ jobs:
 
     - name: Run Publish
       run: |
-        ./sh/ci-publish.sh
+        sh/ci-publish
       env:
         GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
