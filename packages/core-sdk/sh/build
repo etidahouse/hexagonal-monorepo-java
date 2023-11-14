@@ -9,6 +9,7 @@ CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKING_DIR="$(basename "$CURRENT_DIR")"
 
 
+echo $CURRENT_DIR
 echo "$WORKING_DIR"
 
 
