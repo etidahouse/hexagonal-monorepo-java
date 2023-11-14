@@ -12,6 +12,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run CI Build
+      - name: Set up Docker Buildx
         run: docker buildx create --use
-        run: sh/ci-build
+
+      - name: Run CI Build Script
+        run: sh ci-build.sh
