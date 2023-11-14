@@ -5,27 +5,25 @@ CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKING_DIR="$(dirname "$CURRENT_DIR")"
 DIRECTORY_NAME=$(basename "$WORKING_DIR")
 
+
 echo "$DIRECTORY_NAME"
 
-# Check for uncommitted changes
-if [[ -n $(git status -s) ]]; then
-    echo "There are uncommitted changes. Exiting "$DIRECTORY_NAME""
-    exit 1
-fi
 
-# Assuming pom.xml is in the root of the project
-POM_FILE=pom.xml
+CHANGES_COUNT="$( git diff origin/main HEAD "$WORKING_DIR"/pom.xml | grep -c version || echo "" )"
 
-# Extract versions using Maven commands
-MAIN_VERSION=$(mvn help:evaluate -Dexpression=project.version -f "$POM_FILE" -DforceStdout -Dgit.ref=origin/main)
-CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -f "$POM_FILE" -DforceStdout -Dgit.ref=HEAD)
 
 # Compare versions
-if [ "$MAIN_VERSION" != "$CURRENT_VERSION" ]; then
-    echo "The version in $POM_FILE has changed. Continuing with Maven deploy..."
+if [ "$CHANGES_COUNT" != "0" ]; then
+    echo "Change detected. Continuing with Maven deploy..."
 else
-    echo "The version in $POM_FILE is the same. Exiting without Maven deploy."
+    echo "Change detected. Exiting without Maven deploy."
     exit 0
+fi
+
+# Check for uncommitted changes
+if [[ -n $(git status "$WORKING_DIR" -s) ]]; then
+    echo "There are uncommitted changes. Exiting "$DIRECTORY_NAME""
+    exit 1
 fi
 
 
