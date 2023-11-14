@@ -1,14 +1,8 @@
 #!/bin/bash
 
-# Define the relative path to the script
-RELATIVE_PATH=$1
+PROJECT_DIR="$(pwd)"
 
-# Get the absolute path of the directory containing this script
-SCRIPT_DIR=$(dirname "$0")
-
-# Construct the full path to the script using the provided relative path
-SCRIPT_FULL_PATH="$SCRIPT_DIR/$RELATIVE_PATH"
 
 echo "core-sdk - Change detected. Running build..."
 # Execute the script using the constructed full path
-"$SCRIPT_FULL_PATH/ci-build" packages/core-sdk
+"$PROJECT_DIR/packages/core-sdk/sh/ci-build"
