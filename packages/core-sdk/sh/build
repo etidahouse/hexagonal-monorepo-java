@@ -7,6 +7,10 @@ fi
 PROJECT_DIR="$(pwd)"
 CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKDING_DIR="$(dirname "$CURRENT_DIR")"
+DIRECTORY_NAME=$(basename "$WORKING_DIR")
+
+
+echo "$DIRECTORY_NAME"
 
 
 docker run -it --rm \

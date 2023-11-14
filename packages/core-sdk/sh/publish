@@ -16,7 +16,7 @@ CHANGES_COUNT="$( git diff origin/main HEAD "$WORKING_DIR"/pom.xml | grep -c ver
 if [ "$CHANGES_COUNT" != "0" ]; then
     echo "Change detected. Continuing with Maven deploy..."
 else
-    echo "Change detected. Exiting without Maven deploy."
+    echo "No change detected. Exiting without Maven deploy."
     exit 0
 fi
 
