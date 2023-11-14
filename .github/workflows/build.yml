@@ -1,0 +1,17 @@
+name: CI Build
+
+on:
+  pull_request:
+    types: [ready_for_review]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run CI Build
+        run: docker buildx create --use
+        run: sh/ci-build
