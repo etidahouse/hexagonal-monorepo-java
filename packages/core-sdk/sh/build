@@ -12,6 +12,8 @@ DIRECTORY_NAME=$(basename "$WORKING_DIR")
 
 echo "$DIRECTORY_NAME"
 
+echo ls -a
+
 
 docker run --rm \
     --name maven-3.8.5-openjdk-17-slim \
