@@ -13,7 +13,7 @@ DIRECTORY_NAME=$(basename "$WORKING_DIR")
 echo "$DIRECTORY_NAME"
 
 
-docker run -it --rm \
+docker run --rm \
     --name maven-3.8.5-openjdk-17-slim \
     -v "$WORKDING_DIR":/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
