@@ -10,10 +10,5 @@ CURRENT_DIR=${CURRENT_DIR%/*}
 SCRIPT_FULL_PATH="$CURRENT_DIR/$RELATIVE_PATH/sh"
 
 
-CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD "$CURRENT_DIR"/"$RELATIVE_PATH"/packages/core-sdk/pom.xml | grep -c version || echo "" )"
-if [ "$CHANGES_COUNT" != "0" ]; then
-    echo "core-sdk - Change detected. Running build..."
-    "$SCRIPT_FULL_PATH"/build packages/core-sdk
-else
-    echo "core-sdk - No change detected. Skipping build."
-fi
+echo "core-sdk - Change detected. Running build..."
+"$SCRIPT_FULL_PATH"/build packages/core-sdk
