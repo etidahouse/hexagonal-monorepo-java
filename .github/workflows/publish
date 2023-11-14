@@ -19,9 +19,9 @@ jobs:
         distribution: 'adopt'
         java-version: '17'
 
-    - name: Run Maven
+    - name: Run Publish
       run: |
-        ./path/to/your/script.sh
+        ./sh/ci-publish.sh
       env:
         GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
