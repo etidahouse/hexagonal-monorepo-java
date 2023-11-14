@@ -12,7 +12,7 @@ DIRECTORY_NAME=$(basename "$WORKING_DIR")
 
 echo "$DIRECTORY_NAME"
 
-echo ls -a
+ls -a
 
 
 docker run --rm \
