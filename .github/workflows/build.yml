@@ -9,14 +9,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-       - name: Set up Git Configuration
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Git Configuration
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git fetch --no-tags --depth=2 origin main
-
-      - name: Checkout repository
-        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         run: docker buildx create --use
