@@ -1,8 +1,16 @@
 #!/bin/bash
 
-PROJECT_DIR="$(pwd)"
+# Get the directory of the current script
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Get the parent directory of the obtained path
+PARENT_DIR="$(dirname "$SH_DIR")"
 
 
-echo "core-sdk - Change detected. Running build..."
-# Execute the script using the constructed full path
-"$PROJECT_DIR/packages/core-sdk/sh/ci-build"
+CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD packages/core-sdk/pom.xml | grep -c version || echo "" )"
+if [ "$CHANGES_COUNT" != "0" ]; then
+    echo "core-sdk - Change detected. Running build..."
+    "$PARENT_DIR/packages/core-sdk/sh/ci-build"
+else
+    echo "core-sdk - No Change detected."
+fi

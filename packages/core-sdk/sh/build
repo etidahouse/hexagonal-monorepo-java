@@ -4,9 +4,10 @@ if [ ! "$(command -v docker)" ]; then
     exit 0
 fi
 
-PROJECT_DIR="$(pwd)"
-CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKING_DIR="$(basename "$CURRENT_DIR")"
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PARENT_DIR="$(dirname "$SH_DIR")"
+WORKING_DIR="$(basename "$PARENT_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
 
 
 echo "$WORKING_DIR"
@@ -14,7 +15,7 @@ echo "$WORKING_DIR"
 
 docker run --rm \
     --name maven-3.8.5-openjdk-17-slim \
-    -v "$CURRENT_DIR":/opt/maven/ \
+    -v "$PARENT_DIR":/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -w /opt/maven \
     maven:3.8.5-openjdk-17-slim \
