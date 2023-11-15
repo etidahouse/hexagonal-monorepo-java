@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PARENT_DIR="$(dirname "$SH_DIR")"
 WORKING_DIR="$(basename "$PARENT_DIR")"
