@@ -9,6 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+       - name: Set up Git Configuration
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git fetch --no-tags --depth=2 origin main
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
