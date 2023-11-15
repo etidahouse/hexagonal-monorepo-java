@@ -9,6 +9,7 @@ PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
 
 
 echo "$WORKING_DIR"
+echo $GITHUB_TOKEN
 
 
 # Check for uncommitted changes
