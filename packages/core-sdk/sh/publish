@@ -35,4 +35,4 @@ docker run -it --rm \
     -e GITHUB_USERNAME \
     -e GITHUB_TOKEN \
     maven:3.8.5-openjdk-17-slim \
-    mvn clean deploy -s "$PARENT_DIR/settings.xml"
+    mvn clean deploy -s settings.xml
