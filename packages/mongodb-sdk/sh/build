@@ -29,7 +29,7 @@ docker run -d -it --rm \
 
 docker exec \
     -w /opt \
-    "$CONTAINER_RUNTIME_NAME" /bin/bash -c "mvn clean install" || {
+    "$CONTAINER_RUNTIME_NAME" /bin/bash -c "mvn clean install -s settings.xml" || {
         docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
     }
 

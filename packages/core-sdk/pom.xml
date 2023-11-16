@@ -5,7 +5,7 @@
 
     <groupId>dev.begon.hexagonal</groupId>
     <artifactId>core-sdk</artifactId>
-    <version>0.4.0</version>
+    <version>0.5.0</version>
     <packaging>jar</packaging>
 
     <distributionManagement>
@@ -25,6 +25,33 @@
         <directory>${project.basedir}/build</directory>
         <testSourceDirectory>tests</testSourceDirectory>
     </build>
+
+    <repositories>
+        <!-- GitHub Maven package repository -->
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/etidahouse/hexagonal-monorepo-java</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        
+        <!-- Maven Central -->
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
