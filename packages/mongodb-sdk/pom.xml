@@ -5,7 +5,7 @@
 
     <groupId>dev.begon.hexagonal</groupId>
     <artifactId>mongodb-sdk</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>dev.begon.hexagonal</groupId>
             <artifactId>core-sdk</artifactId>
-            <version>0.1.0</version>
+            <version>0.4.0</version>
         </dependency>
 
     </dependencies>
