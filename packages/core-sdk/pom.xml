@@ -5,13 +5,13 @@
 
     <groupId>dev.begon.hexagonal</groupId>
     <artifactId>core-sdk</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <packaging>jar</packaging>
 
     <distributionManagement>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/eti-dahouse/hexagonal-monorepo-java</url>
+            <url>https://maven.pkg.github.com/etidahouse/hexagonal-monorepo-java</url>
         </repository>
     </distributionManagement>
 

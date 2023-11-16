@@ -1,28 +1,19 @@
 #!/bin/bash
 
-PROJECT_DIR="$(pwd)"
-CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-WORKING_DIR="$(dirname "$CURRENT_DIR")"
-DIRECTORY_NAME=$(basename "$WORKING_DIR")
+set -e
+
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PARENT_DIR="$(dirname "$SH_DIR")"
+WORKING_DIR="$(basename "$PARENT_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
 
 
-echo "$DIRECTORY_NAME"
+echo "$WORKING_DIR"
 
-
-CHANGES_COUNT="$( git diff origin/main HEAD "$WORKING_DIR"/pom.xml | grep -c version || echo "" )"
-
-
-# Compare versions
-if [ "$CHANGES_COUNT" != "0" ]; then
-    echo "Change detected. Continuing with Maven deploy..."
-else
-    echo "No change detected. Exiting without Maven deploy."
-    exit 0
-fi
 
 # Check for uncommitted changes
-if [[ -n $(git status "$WORKING_DIR" -s) ]]; then
-    echo "There are uncommitted changes. Exiting "$DIRECTORY_NAME""
+if [[ -n $(git status "$PARENT_DIR" -s) ]]; then
+    echo "There are uncommitted changes. Exiting "$WORKING_DIR""
     exit 1
 fi
 
@@ -33,15 +24,15 @@ if [ ! "$(command -v docker)" ]; then
 fi
 
 
-echo "$DIRECTORY_NAME" Publishing...
+echo "$WORKING_DIR" Publishing...
 
 
 docker run -it --rm \
     --name maven-3.8.5-openjdk-17-slim \
-    -v "$WORKING_DIR":/opt/maven/ \
+    -v "$PARENT_DIR":/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -w /opt/maven \
-    -e GITHUB_USERNAME="$GITHUB_USERNAME" \
-    -e GITHUB_TOKEN="$GITHUB_TOKEN" \
+    -e REPO_USERNAME \
+    -e REPO_TOKEN \
     maven:3.8.5-openjdk-17-slim \
-    mvn clean deploy
+    mvn clean deploy -s settings.xml

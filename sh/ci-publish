@@ -1,12 +1,18 @@
 #!/bin/bash
 
-# Define the relative path to the script
-RELATIVE_PATH=$1
+set -e
 
-CURRENT_DIR=$(cd "$(dirname "$0")" && pwd)
-CURRENT_DIR=${CURRENT_DIR%/*}
+# Get the directory of the current script
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
-# Construct the full path to the script
-SCRIPT_FULL_PATH="$CURRENT_DIR/$RELATIVE_PATH/sh"
+# Get the parent directory of the obtained path
+PARENT_DIR="$(dirname "$SH_DIR")"
 
-"$SCRIPT_FULL_PATH"/publish packages/core-sdk
+
+CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/core-sdk/pom.xml | grep -c version || echo "" )"
+if [ "$CHANGES_COUNT" != "0" ]; then
+    echo "core-sdk - Change detected. Running build..."
+    "$PARENT_DIR/packages/core-sdk/sh/publish"
+else
+    echo "core-sdk - No Change detected."
+fi

@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -19,8 +19,11 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
+      - name: Set up Docker Buildx
+        run: docker buildx create --use
+
       - name: Run Publish
-        run: sh ci-publish.sh
+        run: sh/ci-publish
         env:
-          GITHUB_USERNAME: ${{ secrets.GITHUB_USERNAME }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
