@@ -27,7 +27,7 @@ fi
 echo "$WORKING_DIR" Publishing...
 
 
-docker run -it --rm \
+docker run --rm \
     --name maven-3.8.5-openjdk-17-slim \
     -v "$PARENT_DIR":/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
