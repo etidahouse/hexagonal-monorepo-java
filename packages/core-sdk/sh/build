@@ -14,7 +14,7 @@ echo "$WORKING_DIR"
 
 
 docker run --rm \
-    --name maven-3.8.5-openjdk-17-slim \
+    --name "$WORKING_DIR-maven-build" \
     -v "$PARENT_DIR":/opt/maven/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -w /opt/maven \

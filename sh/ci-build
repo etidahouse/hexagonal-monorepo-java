@@ -8,9 +8,18 @@ PARENT_DIR="$(dirname "$SH_DIR")"
 
 
 CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/core-sdk/ | grep -c version || echo "" )"
-if [ "$CHANGES_COUNT" != "0" ]; then
+if [ "$CORE_SDK_CHANGES_COUNT" != "0" ]; then
     echo "core-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/core-sdk/sh/build"
 else
     echo "core-sdk - No Change detected."
+fi
+
+
+MONGODB_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/mongodb-sdk/ | grep -c version || echo "" )"
+if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
+    echo "mongodb-sdk - Change detected. Running build..."
+    "$PARENT_DIR/packages/mongodb-sdk/sh/build"
+else
+    echo "mongodb-sdk - No Change detected."
 fi

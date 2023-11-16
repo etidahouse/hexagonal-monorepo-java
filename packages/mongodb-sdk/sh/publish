@@ -34,5 +34,5 @@ docker run --rm \
     -w /opt/maven \
     -e REPO_USERNAME \
     -e REPO_TOKEN \
-    maven:3.8.5-openjdk-17-slim \
+    "$( "$SH_DIR/dev-image-tag" )" \
     mvn clean deploy -s settings.xml
