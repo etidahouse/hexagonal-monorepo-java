@@ -21,6 +21,8 @@ CONTAINER_RUNTIME_NAME="$WORKING_DIR-build"
 docker run -d -it --rm \
     -v "$PARENT_DIR":/opt/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
+    -e REPO_USERNAME \
+    -e REPO_TOKEN \
     --name $CONTAINER_RUNTIME_NAME \
     "$( "$SH_DIR/dev-image-tag" )"
 
