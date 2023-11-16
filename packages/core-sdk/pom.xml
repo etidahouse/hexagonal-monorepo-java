@@ -11,7 +11,7 @@
     <distributionManagement>
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/eti-dahouse/hexagonal-monorepo-java</url>
+            <url>https://maven.pkg.github.com/etidahouse/hexagonal-monorepo-java</url>
         </repository>
     </distributionManagement>
 
