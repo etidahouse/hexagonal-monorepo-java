@@ -23,3 +23,6 @@ jobs:
 
       - name: Run CI Build Script
         run: sh/ci-build
+        env:
+          REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
+          REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
