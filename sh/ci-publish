@@ -7,6 +7,13 @@ SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PARENT_DIR="$(dirname "$SH_DIR")"
 
 
+# Check for uncommitted changes
+if [[ -n $(git status "$PARENT_DIR" -s) ]]; then
+    echo "There are uncommitted changes. Exiting publish script."
+    exit 1
+fi
+
+
 CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/core-sdk-sdk/pom.xml | grep -cE '^\+\+\+' )"
 if [ "$CORE_SDK_CHANGES_COUNT" != "0" ]; then
     echo "core-sdk - Change detected. Running build..."
