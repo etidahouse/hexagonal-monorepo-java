@@ -27,12 +27,20 @@ fi
 echo "$WORKING_DIR" Publishing...
 
 
-docker run --rm \
+docker run -d -it --rm \
     --name "$WORKING_DIR"-publish \
-    -v "$PARENT_DIR":/opt/maven/ \
+    -v "$PARENT_DIR":/opt/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
-    -w /opt/maven \
     -e REPO_USERNAME \
     -e REPO_TOKEN \
-    "$( "$SH_DIR/dev-image-tag" )" \
-    mvn clean deploy -s settings.xml
+    "$( "$SH_DIR/dev-image-tag" )"
+
+
+docker exec \
+    -w /opt \
+    "$CONTAINER_RUNTIME_NAME" /bin/bash -c "mvn clean deploy -s settings.xml" || {
+        docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
+    }
+
+
+docker stop "$CONTAINER_RUNTIME_NAME"
