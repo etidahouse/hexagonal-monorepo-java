@@ -14,7 +14,7 @@ if [[ -n $(git status "$PARENT_DIR" -s) ]]; then
 fi
 
 
-CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/core-sdk-sdk/pom.xml | grep -cE 'packages/core-sdk/' )"
+CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/core-sdk-sdk/pom.xml | grep -cE '^\+\+\+' )"
 if [ "$CORE_SDK_CHANGES_COUNT" != "0" ]; then
     echo "core-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/core-sdk/sh/publish"
