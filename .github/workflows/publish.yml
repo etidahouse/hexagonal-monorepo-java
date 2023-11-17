@@ -1,9 +1,11 @@
 name: CI Publish
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [ready_for_review]
+  # push:
+  #  branches:
+  #    - main
 
 jobs:
   release:
