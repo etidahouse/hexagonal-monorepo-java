@@ -15,7 +15,8 @@ fi
 
 
 # Check for changes in core-sdk
-if git log --oneline origin/main..HEAD -- packages/core-sdk/pom.xml | grep .; then
+CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/core-sdk/ | grep -cE '^\+\+\+' )"
+if [ "$CORE_SDK_CHANGES_COUNT" != "0" ]; then
     echo "core-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/core-sdk/sh/publish"
 else
@@ -24,7 +25,8 @@ fi
 
 
 # Check for changes in mongodb-sdk
-if git log --oneline origin/main..HEAD -- packages/mongodb-sdk/pom.xml | grep .; then
+MONGODB_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/mongodb-sdk/ | grep -cE '^\+\+\+' )"
+if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "mongodb-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/mongodb-sdk/sh/publish"
 else
@@ -33,7 +35,8 @@ fi
 
 
 # Check for changes in gateway
-if git log --oneline origin/main..HEAD -- services/gateway/pom.xml | grep .; then
+GATEWAY_CHANGES_COUNT="$( git diff origin/main HEAD -- services/gateway/ | grep -cE '^\+\+\+' )"
+if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "gateway - Change detected. Running build..."
     "$PARENT_DIR/services/gateway/sh/publish"
 else

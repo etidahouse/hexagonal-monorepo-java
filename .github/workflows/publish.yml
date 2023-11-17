@@ -1,4 +1,4 @@
-name: Maven Publish
+name: CI Publish
 
 on:
   push:
@@ -17,13 +17,7 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git fetch --no-tags --depth=2 origin main
-
-      - name: Set up JDK
-        uses: actions/setup-java@v2
-        with:
-          distribution: 'adopt'
-          java-version: '17'
+          git fetch --no-tags origin +refs/heads/main:refs/remotes/origin/main
 
       - name: Set up Docker Buildx
         run: docker buildx create --use
