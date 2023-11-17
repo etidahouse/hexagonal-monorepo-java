@@ -23,10 +23,19 @@ else
 fi
 
 
-MONGODB_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/mongodb-sdk/pom.xml | grep -cE '^\+\+\+' )"
-if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
+# Check for changes in mongodb-sdk
+if git log --oneline origin/main..HEAD -- packages/mongodb-sdk/pom.xml | grep .; then
     echo "mongodb-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/mongodb-sdk/sh/publish"
 else
     echo "mongodb-sdk - No Change detected."
+fi
+
+
+# Check for changes in gateway
+if git log --oneline origin/main..HEAD -- services/gateway/pom.xml | grep .; then
+    echo "gateway - Change detected. Running build..."
+    "$PARENT_DIR/services/gateway/sh/publish"
+else
+    echo "gateway - No Change detected."
 fi
