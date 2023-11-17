@@ -26,7 +26,7 @@ fi
 
 
 GATEWAY_CHANGES_COUNT="$( git diff origin/main HEAD -- services/gateway/ | grep -cE '^\+\+\+' )"
-if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
+if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
     echo "gateway - Change detected. Running build..."
     "$PARENT_DIR/services/gateway/sh/build"
 else
