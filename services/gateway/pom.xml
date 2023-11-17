@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>begon.dev.java.hexagonal-monorepo-java</groupId>
 	<artifactId>gateway</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 
 	<distributionManagement>
         <repository>
