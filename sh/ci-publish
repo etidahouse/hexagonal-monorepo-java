@@ -38,7 +38,7 @@ fi
 
 # Check for changes in gateway
 GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/gateway/ | grep -cE '^\+\+\+' )"
-if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
+if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
     echo "gateway - Change detected. Running build..."
     "$PARENT_DIR/services/gateway/sh/publish"
 else
