@@ -12,6 +12,9 @@ jobs:
       - name: Set Target Ref
         run: echo "TARGET_REF=${{ github.event.before }}" >> $GITHUB_ENV
 
+      - name: Set Source Ref
+        run: echo "SOURCE_REF=${{ github.event.after }}" >> $GITHUB_ENV
+
       - name: Debug Environment Variables
         run: env
 
