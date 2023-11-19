@@ -2,8 +2,7 @@ name: CI Publish
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   release:
@@ -19,7 +18,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.before }}
           fetch-depth: 2
           token: ${{ secrets.REPO_TOKEN}}
 
