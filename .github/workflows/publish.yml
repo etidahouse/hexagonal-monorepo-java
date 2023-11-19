@@ -10,19 +10,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: echo "TARGET_REF=${{ github.event.before }}" >> $GITHUB_ENV
-      - run: env
+      - name: Set Target Ref
+        run: echo "TARGET_REF=${{ github.event.before }}" >> $GITHUB_ENV
+
+      - name: Debug Environment Variables
+        run: env
 
       - name: Checkout code
         uses: actions/checkout@v3
         with:
+          ref: ${{ github.event.before }}
+          fetch-depth: 0
           token: ${{ secrets.REPO_TOKEN}}
 
       - name: Set up Git Configuration
         run: |
           git config --global user.email "e-begon@hotmail.fr"
           git config --global user.name "etidahouse"
-          git fetch --no-tags origin main
+          git fetch --depth=0 --no-tags origin main
 
       - name: Set up Docker Buildx
         run: docker buildx create --use
