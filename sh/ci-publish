@@ -13,9 +13,10 @@ if [[ -n $(git status "$PARENT_DIR" -s) ]]; then
     exit 1
 fi
 
+TARGET_REF=${TARGET_REF:-origin/main}
 
 # Check for changes in core-sdk
-CORE_SDK_CHANGES_COUNT="$( git diff main HEAD packages/core-sdk/ | grep -cE '^\+\+\+' )"
+CORE_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" HEAD packages/core-sdk/ | grep -cE '^\+\+\+' )"
 if [ "$CORE_SDK_CHANGES_COUNT" != "0" ]; then
     echo "core-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/core-sdk/sh/publish"
@@ -25,7 +26,7 @@ fi
 
 
 # Check for changes in mongodb-sdk
-MONGODB_SDK_CHANGES_COUNT="$( git diff main HEAD packages/mongodb-sdk/ | grep -cE '^\+\+\+' )"
+MONGODB_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" HEAD packages/mongodb-sdk/ | grep -cE '^\+\+\+' )"
 if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "mongodb-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/mongodb-sdk/sh/publish"
@@ -35,7 +36,7 @@ fi
 
 
 # Check for changes in gateway
-GATEWAY_CHANGES_COUNT="$( git diff main HEAD services/gateway/ | grep -cE '^\+\+\+' )"
+GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" HEAD services/gateway/ | grep -cE '^\+\+\+' )"
 if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "gateway - Change detected. Running build..."
     "$PARENT_DIR/services/gateway/sh/publish"
