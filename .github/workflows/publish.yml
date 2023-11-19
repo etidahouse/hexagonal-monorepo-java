@@ -27,7 +27,6 @@ jobs:
         run: |
           git config --global user.email "e-begon@hotmail.fr"
           git config --global user.name "etidahouse"
-          git fetch --depth=2 --no-tags origin main
 
       - name: Set up Docker Buildx
         run: docker buildx create --use
