@@ -36,6 +36,9 @@ docker run -d -it --rm \
     "$( "$SH_DIR/dev-image-tag" )"
 
 
+sleep 2
+
+
 docker exec \
     -w /opt \
     "$CONTAINER_RUNTIME_NAME" /bin/bash -c "mvn clean deploy -s settings.xml" || {
