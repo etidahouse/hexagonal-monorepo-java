@@ -27,16 +27,16 @@ fi
 echo "$WORKING_DIR" Publishing...
 
 
+CONTAINER_RUNTIME_NAME="$WORKING_DIR"-publish
+
+
 docker run -d -it --rm \
-    --name "$WORKING_DIR"-publish \
+    --name "$CONTAINER_RUNTIME_NAME" \
     -v "$PARENT_DIR":/opt/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -e REPO_USERNAME \
     -e REPO_TOKEN \
     "$( "$SH_DIR/dev-image-tag" )"
-
-
-sleep 2
 
 
 docker exec \
