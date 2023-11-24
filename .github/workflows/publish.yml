@@ -39,7 +39,7 @@ jobs:
           REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
 
       - name: Release docker
-        run: sh/release
+        run: sh/ci-release
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
