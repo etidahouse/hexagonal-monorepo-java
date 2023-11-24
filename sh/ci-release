@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Get the directory of the current script
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+# Get the parent directory of the obtained path
+PARENT_DIR="$(dirname "$SH_DIR")"
+
+
+# Check for uncommitted changes
+if [[ -n $(git status "$PARENT_DIR" -s) ]]; then
+    echo "There are uncommitted changes. Exiting release script."
+    exit 1
+fi
+
+TARGET_REF=${TARGET_REF:-origin/main}
+SOURCE_REF=${SOURCE_REF:-HEAD}
+
+
+# Check for changes in gateway
+GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/gateway/ | grep -cE '^\+\+\+' )"
+if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
+    echo "gateway - Change detected. Build release..."
+    "$PARENT_DIR/services/gateway/sh/release"
+else
+    echo "gateway - No Change detected."
+fi

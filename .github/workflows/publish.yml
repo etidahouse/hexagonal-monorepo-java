@@ -37,3 +37,9 @@ jobs:
         env:
           REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
           REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+
+      - name: Release docker
+        run: sh/release
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
