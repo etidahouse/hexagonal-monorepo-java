@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>dev.begon.hexagonal</groupId>
 	<artifactId>gateway</artifactId>
-	<version>0.1.0</version>
+	<version>0.1.1</version>
 
 	<distributionManagement>
         <repository>
