@@ -38,6 +38,12 @@ jobs:
           REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
           REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
 
+      - name: Configure dockerhub release service account
+        run: docker login -u "$DOCKER_USERNAME" --password "$DOCKER_TOKEN"
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_TOKEN }}
+
       - name: Release docker
         run: sh/ci-release
         env:
