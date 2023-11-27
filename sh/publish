@@ -15,5 +15,5 @@ if [ -f "$SCRIPT_FULL_PATH" ]; then
     # Run the script
     sh "$SCRIPT_FULL_PATH"
 else
-    echo "Error: File '"$SCRIPT_FULL_PATH"' does not exist."
+    echo "Error: File '$SCRIPT_FULL_PATH' does not exist."
 fi
