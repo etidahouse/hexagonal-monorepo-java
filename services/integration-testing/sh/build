@@ -1,0 +1,25 @@
+#!/bin/bash
+if [ ! "$(command -v docker)" ]; then
+    echo "docker could not be found"
+    exit 0
+fi
+
+
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PARENT_DIR="$(dirname "$SH_DIR")"
+WORKING_DIR="$(basename "$PARENT_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
+
+
+echo "$WORKING_DIR"
+
+
+docker run --rm \
+    --name "$WORKING_DIR-maven-build" \
+    -v "$PARENT_DIR":/opt/maven/ \
+    -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
+    -w /opt/maven \
+    -e REPO_USERNAME \
+    -e REPO_TOKEN \
+    maven:3.8.5-openjdk-17-slim \
+    mvn clean install -s settings.xml
