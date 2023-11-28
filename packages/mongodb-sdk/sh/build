@@ -12,7 +12,6 @@ PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
 
 
 echo "$WORKING_DIR"
-echo $PARENT_DIR
 
 
 CONTAINER_RUNTIME_NAME="$WORKING_DIR-build"
@@ -23,7 +22,7 @@ docker run -d -it --rm \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     -e REPO_USERNAME \
     -e REPO_TOKEN \
-    --name $CONTAINER_RUNTIME_NAME \
+    --name "$CONTAINER_RUNTIME_NAME" \
     "$( "$SH_DIR/dev-image-tag" )"
 
 

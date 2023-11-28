@@ -13,7 +13,7 @@ echo "$WORKING_DIR"
 
 # Check for uncommitted changes
 if [[ -n $(git status "$PARENT_DIR" -s) ]]; then
-    echo "There are uncommitted changes. Exiting "$WORKING_DIR""
+    echo "There are uncommitted changes. Exiting $WORKING_DIR"
     exit 1
 fi
 

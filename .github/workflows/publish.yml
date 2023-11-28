@@ -32,6 +32,9 @@ jobs:
       - name: Set up Docker Buildx
         run: docker buildx create --use
 
+      - name: Run Shell Check
+        run: sh/shell-check
+
       - name: Run Publish
         run: sh/ci-publish
         env:
