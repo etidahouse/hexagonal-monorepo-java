@@ -14,4 +14,4 @@ echo "Shell check"
 
 docker run --rm \
     -v "$ROOT_DIR:/mnt" \
-    koalaman/shellcheck:latest ./sh/* ./*/sh/* ./*/*/sh/* ./*/*/*/sh/*
+    koalaman/shellcheck:latest ./sh/* ./*/*/sh/*
