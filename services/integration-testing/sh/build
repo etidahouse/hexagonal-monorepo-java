@@ -7,11 +7,10 @@ fi
 
 SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PARENT_DIR="$(dirname "$SH_DIR")"
-WORKING_DIR="$(basename "$PARENT_DIR")"
 PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
 
 GATEWAY="$(dirname "$PARENT_DIR")"/gateway/
-echo $PARENT_DIR
+
 echo "Running gateway build ..."
 "$GATEWAY"sh/build
 
