@@ -32,3 +32,7 @@ if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
 else
     echo "gateway - No Change detected."
 fi
+
+
+echo "Running integration testing ..."
+"$PARENT_DIR/services/integration-testing/sh/build"

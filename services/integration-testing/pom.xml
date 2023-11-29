@@ -6,8 +6,61 @@
     <groupId>dev.begon.hexagonal</groupId>
     <artifactId>integration-testing</artifactId>
     <version>0.1.0</version>
+
+	<distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/etidahouse/hexagonal-monorepo-java</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+	<build>
+        <sourceDirectory>src</sourceDirectory>
+        <directory>${project.basedir}/build</directory>
+        <testSourceDirectory>tests</testSourceDirectory>
+    </build>
+
+	 <repositories>
+        <!-- GitHub Maven package repository -->
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/etidahouse/hexagonal-monorepo-java</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        
+        <!-- Maven Central -->
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     
     <dependencies>
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- REST Assured -->
         <dependency>
             <groupId>io.rest-assured</groupId>

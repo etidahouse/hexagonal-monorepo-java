@@ -25,4 +25,19 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./gateway/build/gateway.jar /opt/gateway.jar
+      - $INTEGRATION_TESTING_GATEWAY:/opt/gateway.jar
+    command: java -jar /opt/gateway.jar
+
+  tests:
+    image: maven:3.8.5-openjdk-17-slim
+    depends_on: 
+      - mongodb
+      - gateway
+    environment:
+      REPO_USERNAME: $REPO_USERNAME
+      REPO_TOKEN: $REPO_TOKEN
+    volumes:
+      - $PARENT_DIR:/opt/maven/
+      - $PROJECT_DIR/.m2:/root/.m2/repository
+    working_dir: /opt/maven
+    command: mvn clean install -s settings.xml
