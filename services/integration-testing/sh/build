@@ -1,0 +1,28 @@
+#!/bin/bash
+if [ ! "$(command -v docker)" ]; then
+    echo "docker could not be found"
+    exit 0
+fi
+
+
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PARENT_DIR="$(dirname "$SH_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
+
+GATEWAY="$(dirname "$PARENT_DIR")"/gateway/
+
+echo "Running gateway build ..."
+"$GATEWAY"sh/build
+
+echo "Settings env variables ..."
+export INTEGRATION_TESTING_GATEWAY="$GATEWAY"/build/gateway.jar
+export PARENT_DIR=$PARENT_DIR
+export PROJECT_DIR=$PROJECT_DIR
+export REPO_USERNAME=$REPO_USERNAME
+export REPO_TOKEN=$REPO_TOKEN
+
+echo "Running integration env ..."
+docker-compose -f "$PARENT_DIR"/docker-compose.yml up --exit-code-from tests
+
+echo "Stopping integration env ..."
+docker-compose -f "$PARENT_DIR"/docker-compose.yml down
