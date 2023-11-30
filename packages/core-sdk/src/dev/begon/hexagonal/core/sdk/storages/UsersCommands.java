@@ -9,4 +9,6 @@ public interface UsersCommands {
 
     void storeUser(User user) throws UnknownFailureException;
 
+    void removeUser(User user) throws UnknownFailureException;
+
 }
