@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.UUID;
 
@@ -49,6 +50,41 @@ public class MongoUsersCommandsTest {
         assertEquals(user, userUpdateResult);
 
         TestUtils.removeUserById(storage, userInsertResult.getId());
+    }
+
+    @Test
+    public void testRemoveUser_Success_to_remove_user() throws UnknownFailureException, NotFoundUserException {
+        MongoDatabase storage = TestUtils.mongoStorage("db");
+
+        MongoUsersCommands usersCommands = new MongoUsersCommands(storage);
+        User user = new User(UUID.randomUUID(), "username", "email");
+        usersCommands.storeUser(user);
+
+        MongoUsersQueries usersQueries = new MongoUsersQueries(storage);
+        User userResult = usersQueries.getUserById(user.getId());
+
+        assertEquals(user, userResult);
+
+        usersCommands.removeUser(user);
+
+        assertThrows(NotFoundUserException.class, () ->
+            usersQueries.getUserById(UUID.randomUUID())
+        );
+    }
+
+    @Test
+    public void testRemoveUser_Success_without_user() throws UnknownFailureException, NotFoundUserException {
+        MongoDatabase storage = TestUtils.mongoStorage("db");
+
+        MongoUsersCommands usersCommands = new MongoUsersCommands(storage);
+        User user = new User(UUID.randomUUID(), "username", "email");
+
+        MongoUsersQueries usersQueries = new MongoUsersQueries(storage);
+        assertThrows(NotFoundUserException.class, () ->
+            usersQueries.getUserById(UUID.randomUUID())
+        );
+
+        usersCommands.removeUser(user);
     }
 
 }
