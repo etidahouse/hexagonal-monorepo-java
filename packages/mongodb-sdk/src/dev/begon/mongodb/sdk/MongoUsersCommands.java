@@ -37,5 +37,15 @@ public class MongoUsersCommands implements UsersCommands {
             throw new UnknownFailureException("Failed to store user", e);
         }
     }
-    
+
+    @Override
+    public void removeUser(User user) throws UnknownFailureException {
+        try {
+            Bson query = eq("_id", user.getId());
+            usersCollection.deleteOne(query);
+        } catch(Exception e) {
+            throw new UnknownFailureException("Failed to remove user", e);
+        }
+    }
+ 
 }
