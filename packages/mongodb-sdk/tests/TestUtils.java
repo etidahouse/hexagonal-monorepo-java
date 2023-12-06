@@ -5,8 +5,8 @@ import static com.mongodb.client.model.Filters.eq;
 
 import org.bson.conversions.Bson;
 
-import dev.begon.hexagonal.core.sdk.storages.UsersCommands;
-import dev.begon.mongodb.sdk.MongoStorage;
+import dev.begon.hexagonal.mongodb.sdk.MongoStorage;
+import static dev.begon.hexagonal.mongodb.sdk.UsersStorage.usersTableName;
 
 public class TestUtils {
     
@@ -21,7 +21,7 @@ public class TestUtils {
 
     public static void removeUserById(MongoDatabase storage, UUID userId) {
         Bson query = eq("_id", userId);
-        storage.getCollection(UsersCommands.usersTableName).deleteOne(query);
+        storage.getCollection(usersTableName).deleteOne(query);
     }
  
 }

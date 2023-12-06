@@ -9,8 +9,8 @@ import com.mongodb.client.MongoDatabase;
 import dev.begon.hexagonal.core.sdk.entities.User;
 import dev.begon.hexagonal.core.sdk.exceptions.NotFoundUserException;
 import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
-import dev.begon.mongodb.sdk.MongoUsersCommands;
-import dev.begon.mongodb.sdk.MongoUsersQueries;
+import dev.begon.hexagonal.mongodb.sdk.MongoUsersCommands;
+import dev.begon.hexagonal.mongodb.sdk.MongoUsersQueries;
 
 public class MongoUsersCommandsTest {
     

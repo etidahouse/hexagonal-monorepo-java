@@ -1,4 +1,4 @@
-package dev.begon.mongodb.sdk;
+package dev.begon.hexagonal.mongodb.sdk;
 
 import dev.begon.hexagonal.core.sdk.storages.UsersCommands;
 import dev.begon.hexagonal.core.sdk.entities.User;
@@ -14,6 +14,7 @@ import org.bson.conversions.Bson;
 
 import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
 
+import static dev.begon.hexagonal.mongodb.sdk.UsersStorage.usersTableName;
 
 public class MongoUsersCommands implements UsersCommands {
 

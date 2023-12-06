@@ -13,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import dev.begon.mongodb.sdk.MongoUsersQueries;
+import dev.begon.hexagonal.mongodb.sdk.MongoUsersQueries;
 
 import java.util.Arrays;
 import java.util.Collections;

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 
 import com.mongodb.client.MongoDatabase;
 
-import dev.begon.mongodb.sdk.MongoStorage;
-import dev.begon.mongodb.sdk.MongoUsersQueries;
+import dev.begon.hexagonal.mongodb.sdk.MongoStorage;
+import dev.begon.hexagonal.mongodb.sdk.MongoUsersQueries;
 
 @Configuration
 public class AppConfig {

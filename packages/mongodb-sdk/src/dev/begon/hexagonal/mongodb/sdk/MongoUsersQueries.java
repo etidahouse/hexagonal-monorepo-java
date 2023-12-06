@@ -1,4 +1,4 @@
-package dev.begon.mongodb.sdk;
+package dev.begon.hexagonal.mongodb.sdk;
 
 import dev.begon.hexagonal.core.sdk.storages.UsersQueries;
 import dev.begon.hexagonal.core.sdk.entities.User;
@@ -16,6 +16,8 @@ import dev.begon.hexagonal.core.sdk.exceptions.UnknownFailureException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static dev.begon.hexagonal.mongodb.sdk.UsersStorage.usersTableName;
 
 public class MongoUsersQueries implements UsersQueries {
     
