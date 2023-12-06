@@ -3,7 +3,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.mongodb.client.MongoDatabase;
 
-import dev.begon.mongodb.sdk.MongoStorage;
+import dev.begon.hexagonal.mongodb.sdk.MongoStorage;
 
 public class MongoStorageTest {
 

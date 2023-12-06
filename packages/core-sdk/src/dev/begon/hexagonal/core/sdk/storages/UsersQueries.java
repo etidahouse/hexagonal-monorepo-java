@@ -9,8 +9,6 @@ import java.util.UUID;
 
 public interface UsersQueries {
 
-    public static final String usersTableName = "users";
-
     List<User> listUsers() throws UnknownFailureException;
 
     User getUserById(UUID userId) throws NotFoundUserException, UnknownFailureException;

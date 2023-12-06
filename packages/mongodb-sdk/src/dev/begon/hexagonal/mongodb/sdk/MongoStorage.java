@@ -1,4 +1,4 @@
-package dev.begon.mongodb.sdk;
+package dev.begon.hexagonal.mongodb.sdk;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
