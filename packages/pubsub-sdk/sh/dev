@@ -1,0 +1,40 @@
+#!/bin/bash
+if [ ! "$(command -v docker)" ]; then
+    echo "docker could not be found"
+    exit 0
+fi
+
+PROJECT_DIR="$(pwd)"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WORKDING_DIR="$(dirname "$CURRENT_DIR")"
+
+CONTAINER_RUNTIME_NAME="hexagonal-monorepo-java-pubsub"
+NETWORK_NAME="pubsub-network"
+
+if [ ! "$(docker network ls | grep "$NETWORK_NAME")" ]; then
+  echo "Creating network ..."
+  docker network create $NETWORK_NAME
+fi
+
+docker run -it --rm \
+    -v "$WORKDING_DIR":/pubsub \
+    -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
+    --name $CONTAINER_RUNTIME_NAME \
+    --network $NETWORK_NAME \
+    -e KAFKA_CFG_NODE_ID=0 \
+    -e KAFKA_CFG_PROCESS_ROLES=controller,broker \
+    -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
+    -e KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT \
+    -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@"$CONTAINER_RUNTIME_NAME":9093 \
+    -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER \
+    "$( "$CURRENT_DIR/dev-image-tag" )"
+
+
+# docker exec -it  \
+#     -w /pubsub \
+#     "$CONTAINER_RUNTIME_NAME" /bin/bash || {
+#         docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
+#     }
+
+
+# docker stop "$CONTAINER_RUNTIME_NAME"
