@@ -1,0 +1,47 @@
+#!/bin/bash
+if [ ! "$(command -v docker)" ]; then
+    echo "docker could not be found"
+    exit 0
+fi
+
+
+NETWORK_NAME="pubsub-network"
+
+if ! docker network ls | grep -q "$NETWORK_NAME"; then
+  echo "Creating network ..."
+  docker network create $NETWORK_NAME
+fi
+
+
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PARENT_DIR="$(dirname "$SH_DIR")"
+WORKING_DIR="$(basename "$PARENT_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
+
+echo "$WORKING_DIR"
+
+CONTAINER_RUNTIME_NAME="$WORKING_DIR-build"
+
+
+docker run -d -it --rm \
+    -v "$PARENT_DIR":/pubsub \
+    -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
+    --name "$CONTAINER_RUNTIME_NAME" \
+    --network $NETWORK_NAME \
+    -e KAFKA_CFG_NODE_ID=0 \
+    -e KAFKA_CFG_PROCESS_ROLES=controller,broker \
+    -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
+    -e KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT \
+    -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@"$CONTAINER_RUNTIME_NAME":9093 \
+    -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER \
+    "$( "$SH_DIR/dev-image-tag" )"
+
+
+docker exec  \
+    -w /pubsub \
+    "$CONTAINER_RUNTIME_NAME" /bin/bash -c "mvn clean install -s settings.xml" || {
+        docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
+    }
+
+
+docker stop "$CONTAINER_RUNTIME_NAME"

@@ -35,6 +35,15 @@ else
     echo "mongodb-sdk - No Change detected."
 fi
 
+# Check for changes in mongodb-sdk
+PUBSUB_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/pubsub-sdk/pom.xml | grep -cE '^\+\+\+' )"
+if [ "$PUBSUB_SDK_CHANGES_COUNT" != "0" ]; then
+    echo "pubsub-sdk - Change detected. Running build..."
+    "$PARENT_DIR/packages/pubsub-sdk/sh/publish"
+else
+    echo "pubsub-sdk - No Change detected."
+fi
+
 
 # Check for changes in gateway
 GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/gateway/pom.xml | grep -cE '^\+\+\+' )"

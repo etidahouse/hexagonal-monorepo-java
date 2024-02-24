@@ -24,6 +24,14 @@ else
     echo "mongodb-sdk - No Change detected."
 fi
 
+PUBSUB_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/pubsub-sdk/ | grep -cE '^\+\+\+' )"
+if [ "$PUBSUB_SDK_CHANGES_COUNT" != "0" ]; then
+    echo "pubsub-sdk - Change detected. Running build..."
+    "$PARENT_DIR/packages/pubsub-sdk/sh/build"
+else
+    echo "pubsub-sdk - No Change detected."
+fi
+
 
 GATEWAY_CHANGES_COUNT="$( git diff origin/main HEAD -- services/gateway/ | grep -cE '^\+\+\+' )"
 if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then

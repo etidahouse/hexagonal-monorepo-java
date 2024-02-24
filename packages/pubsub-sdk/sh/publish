@@ -1,0 +1,49 @@
+#!/bin/bash
+
+set -e
+
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+PARENT_DIR="$(dirname "$SH_DIR")"
+WORKING_DIR="$(basename "$PARENT_DIR")"
+PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
+
+
+echo "$WORKING_DIR"
+
+
+# Check for uncommitted changes
+if [[ -n $(git status "$PARENT_DIR" -s) ]]; then
+    echo "There are uncommitted changes. Exiting $WORKING_DIR"
+    exit 1
+fi
+
+
+if [ ! "$(command -v docker)" ]; then
+    echo "docker could not be found"
+    exit 0
+fi
+
+
+echo "$WORKING_DIR" Publishing...
+
+
+CONTAINER_RUNTIME_NAME="$WORKING_DIR"-publish
+
+
+docker run -d -it --rm \
+    --name "$CONTAINER_RUNTIME_NAME" \
+    -v "$PARENT_DIR":/opt/ \
+    -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
+    -e REPO_USERNAME \
+    -e REPO_TOKEN \
+    "$( "$SH_DIR/dev-image-tag" )"
+
+
+docker exec \
+    -w /opt \
+    "$CONTAINER_RUNTIME_NAME" /bin/bash -c "mvn clean deploy -s settings.xml" || {
+        docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
+    }
+
+
+docker stop "$CONTAINER_RUNTIME_NAME"
