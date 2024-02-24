@@ -33,6 +33,14 @@ docker run --rm \
     maven:3.8.5-openjdk-17-slim \
     mvn clean install -s settings.xml -DskipTests
 
+if [ $? -ne 0 ]; then
+    echo "Maven build failed with exit code $?. Exiting script."
+    docker stop "$CONTAINER_RUNTIME_NAME"
+    exit 1
+else
+    echo "Maven build succeeded."
+fi
+
 
 docker run -d -it --rm \
     -v "$PARENT_DIR":/pubsub \
