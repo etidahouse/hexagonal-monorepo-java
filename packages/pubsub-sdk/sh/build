@@ -27,14 +27,14 @@ CONTAINER_RUNTIME_NAME="$WORKING_DIR-build"
 
 docker run --rm \
     --name "$WORKING_DIR-maven-build" \
-    -v "$PARENT_DIR":/opt/maven/ \
+    -v "$PARENT_DIR":/pubsub/ \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
-    -w /opt/maven \
+    -w /pubsub \
     maven:3.8.5-openjdk-17-slim \
     mvn clean install -s settings.xml -DskipTests
 
-if [ $? -ne 0 ]; then
-    echo "Maven build failed with exit code $?. Exiting script."
+if ! docker exec -w /opt "$CONTAINER_RUNTIME_NAME" /bin/bash -c "mvn clean install -s settings.xml"; then
+    echo "Maven build failed. Exiting script."
     docker stop "$CONTAINER_RUNTIME_NAME"
     exit 1
 else
@@ -42,7 +42,7 @@ else
 fi
 
 
-docker run -d -it --rm \
+docker run -d --rm \
     -v "$PARENT_DIR":/pubsub \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     --name "$CONTAINER_RUNTIME_NAME" \
