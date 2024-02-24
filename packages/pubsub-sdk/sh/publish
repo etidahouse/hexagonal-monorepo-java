@@ -23,6 +23,11 @@ if [ ! "$(command -v docker)" ]; then
     exit 0
 fi
 
+if ! docker network ls | grep -q "$NETWORK_NAME"; then
+  echo "Creating network ..."
+  docker network create $NETWORK_NAME
+fi
+
 
 echo "$WORKING_DIR" Publishing...
 
@@ -34,7 +39,7 @@ docker run -d -it --rm \
     -v "$PARENT_DIR":/pubsub \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     --name "$CONTAINER_RUNTIME_NAME" \
-    --network $NETWORK_NAME \
+    --network "$NETWORK_NAME" \
     -e KAFKA_CFG_NODE_ID=0 \
     -e KAFKA_CFG_PROCESS_ROLES=controller,broker \
     -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 \
