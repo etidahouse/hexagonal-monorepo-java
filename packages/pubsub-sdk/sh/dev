@@ -16,7 +16,7 @@ if [ ! "$(docker network ls | grep "$NETWORK_NAME")" ]; then
   docker network create $NETWORK_NAME
 fi
 
-docker run -it --rm \
+docker run -d -it --rm \
     -v "$WORKDING_DIR":/pubsub \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     --name $CONTAINER_RUNTIME_NAME \
@@ -30,11 +30,11 @@ docker run -it --rm \
     "$( "$CURRENT_DIR/dev-image-tag" )"
 
 
-# docker exec -it  \
-#     -w /pubsub \
-#     "$CONTAINER_RUNTIME_NAME" /bin/bash || {
-#         docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
-#     }
+docker exec -it  \
+    -w /pubsub \
+    "$CONTAINER_RUNTIME_NAME" /bin/bash || {
+        docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
+    }
 
 
-# docker stop "$CONTAINER_RUNTIME_NAME"
+docker stop "$CONTAINER_RUNTIME_NAME"
