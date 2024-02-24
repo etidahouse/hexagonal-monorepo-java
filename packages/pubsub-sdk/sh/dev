@@ -11,7 +11,7 @@ WORKDING_DIR="$(dirname "$CURRENT_DIR")"
 CONTAINER_RUNTIME_NAME="hexagonal-monorepo-java-pubsub"
 NETWORK_NAME="pubsub-network"
 
-if [ ! "$(docker network ls | grep "$NETWORK_NAME")" ]; then
+if ! docker network ls | grep -q "$NETWORK_NAME"; then
   echo "Creating network ..."
   docker network create $NETWORK_NAME
 fi

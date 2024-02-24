@@ -7,7 +7,7 @@ fi
 
 NETWORK_NAME="pubsub-network"
 
-if [ ! "$(docker network ls | grep "$NETWORK_NAME")" ]; then
+if ! docker network ls | grep -q "$NETWORK_NAME"; then
   echo "Creating network ..."
   docker network create $NETWORK_NAME
 fi
@@ -26,7 +26,7 @@ CONTAINER_RUNTIME_NAME="$WORKING_DIR-build"
 docker run -d -it --rm \
     -v "$PARENT_DIR":/pubsub \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
-    --name $CONTAINER_RUNTIME_NAME \
+    --name "$CONTAINER_RUNTIME_NAME" \
     --network $NETWORK_NAME \
     -e KAFKA_CFG_NODE_ID=0 \
     -e KAFKA_CFG_PROCESS_ROLES=controller,broker \
