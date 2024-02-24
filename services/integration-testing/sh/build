@@ -24,5 +24,11 @@ export REPO_TOKEN=$REPO_TOKEN
 echo "Running integration env ..."
 docker-compose -f "$PARENT_DIR"/docker-compose.yml up --exit-code-from tests
 
+if [ $? -ne 0 ]; then
+  echo "Docker Compose failed to start."
+  exit 1
+fi
+
+
 echo "Stopping integration env ..."
 docker-compose -f "$PARENT_DIR"/docker-compose.yml down
