@@ -48,12 +48,5 @@ docker exec  \
         docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
     }
 
-mvn_exit_code=$?
-
-if [ $mvn_exit_code -ne 0 ]; then
-    docker stop "$CONTAINER_RUNTIME_NAME"
-    exit 1
-fi
-
 
 docker stop "$CONTAINER_RUNTIME_NAME"
