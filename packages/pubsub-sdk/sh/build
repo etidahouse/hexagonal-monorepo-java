@@ -25,6 +25,14 @@ echo "$WORKING_DIR"
 
 CONTAINER_RUNTIME_NAME="$WORKING_DIR-build"
 
+docker run --rm \
+    --name "$WORKING_DIR-maven-build" \
+    -v "$PARENT_DIR":/opt/maven/ \
+    -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
+    -w /opt/maven \
+    maven:3.8.5-openjdk-17-slim \
+    mvn clean install -s settings.xml -DskipTests
+
 
 docker run -d -it --rm \
     -v "$PARENT_DIR":/pubsub \

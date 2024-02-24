@@ -1,8 +1,5 @@
 #!/bin/bash
 
-set -x
-
-
 # Get the directory of the current script
 SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
