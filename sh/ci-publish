@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Get the directory of the current script
 SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
@@ -17,7 +19,7 @@ TARGET_REF=${TARGET_REF:-origin/main}
 SOURCE_REF=${SOURCE_REF:-HEAD}
 
 # Check for changes in core-sdk
-CORE_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/core-sdk/pom.xml | grep -cE '^\+\+\+' )"
+CORE_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/core-sdk/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$CORE_SDK_CHANGES_COUNT" != "0" ]; then
     echo "core-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/core-sdk/sh/publish"
@@ -27,7 +29,7 @@ fi
 
 
 # Check for changes in mongodb-sdk
-MONGODB_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/mongodb-sdk/pom.xml | grep -cE '^\+\+\+' )"
+MONGODB_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/mongodb-sdk/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "mongodb-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/mongodb-sdk/sh/publish"
@@ -36,7 +38,7 @@ else
 fi
 
 # Check for changes in mongodb-sdk
-PUBSUB_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/pubsub-sdk/pom.xml | grep -cE '^\+\+\+' )"
+PUBSUB_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/pubsub-sdk/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$PUBSUB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "pubsub-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/pubsub-sdk/sh/publish"
@@ -46,7 +48,7 @@ fi
 
 
 # Check for changes in gateway
-GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/gateway/pom.xml | grep -cE '^\+\+\+' )"
+GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/gateway/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
     echo "gateway - Change detected. Running build..."
     "$PARENT_DIR/services/gateway/sh/publish"

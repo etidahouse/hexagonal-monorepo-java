@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Get the directory of the current script
 SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
@@ -7,7 +9,7 @@ SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PARENT_DIR="$(dirname "$SH_DIR")"
 
 
-CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/core-sdk/ | grep -cE '^\+\+\+' )"
+CORE_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/core-sdk/ | grep -cE '^\+\+\+' )" || true
 if [ "$CORE_SDK_CHANGES_COUNT" != "0" ]; then
     echo "core-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/core-sdk/sh/build"
@@ -16,7 +18,7 @@ else
 fi
 
 
-MONGODB_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/mongodb-sdk/ | grep -cE '^\+\+\+' )"
+MONGODB_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/mongodb-sdk/ | grep -cE '^\+\+\+' )" || true
 if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "mongodb-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/mongodb-sdk/sh/build"
@@ -24,7 +26,7 @@ else
     echo "mongodb-sdk - No Change detected."
 fi
 
-PUBSUB_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/pubsub-sdk/ | grep -cE '^\+\+\+' )"
+PUBSUB_SDK_CHANGES_COUNT="$( git diff origin/main HEAD -- packages/pubsub-sdk/ | grep -cE '^\+\+\+' )" || true
 if [ "$PUBSUB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "pubsub-sdk - Change detected. Running build..."
     "$PARENT_DIR/packages/pubsub-sdk/sh/build"
@@ -33,7 +35,7 @@ else
 fi
 
 
-GATEWAY_CHANGES_COUNT="$( git diff origin/main HEAD -- services/gateway/ | grep -cE '^\+\+\+' )"
+GATEWAY_CHANGES_COUNT="$( git diff origin/main HEAD -- services/gateway/ | grep -cE '^\+\+\+' )" || true
 if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
     echo "gateway - Change detected. Running build..."
     "$PARENT_DIR/services/gateway/sh/build"
