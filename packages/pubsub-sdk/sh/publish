@@ -23,9 +23,10 @@ if [ ! "$(command -v docker)" ]; then
     exit 0
 fi
 
+NETWORK_NAME="pubsub-network"
 if ! docker network ls | grep -q "$NETWORK_NAME"; then
   echo "Creating network ..."
-  docker network create $NETWORK_NAME
+  docker network create "$NETWORK_NAME"
 fi
 
 
