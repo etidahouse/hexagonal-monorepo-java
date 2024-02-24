@@ -37,7 +37,7 @@ docker run -d -it --rm \
     "$( "$SH_DIR/dev-image-tag" )"
 
 
-docker exec -it  \
+docker exec  \
     -w /pubsub \
     "$CONTAINER_RUNTIME_NAME" /bin/bash -c "mvn clean install -s settings.xml" || {
         docker stop "$CONTAINER_RUNTIME_NAME"; exit 1
