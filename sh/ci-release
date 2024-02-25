@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # Get the directory of the current script
 SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
@@ -18,7 +20,7 @@ SOURCE_REF=${SOURCE_REF:-HEAD}
 
 
 # Check for changes in gateway
-GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/gateway/pom.xml | grep -cE '^\+\+\+' )"
+GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/gateway/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
     echo "gateway - Change detected. Build release..."
     "$PARENT_DIR/services/gateway/sh/release"

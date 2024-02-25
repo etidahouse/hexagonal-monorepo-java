@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 if [ ! "$(command -v docker)" ]; then
     echo "docker could not be found"
     exit 0
@@ -23,7 +26,7 @@ echo "$WORKING_DIR"
 CONTAINER_RUNTIME_NAME="$WORKING_DIR-build"
 
 
-docker run -d -it --rm \
+docker run -d --rm \
     -v "$PARENT_DIR":/pubsub \
     -v "$PROJECT_DIR"/.m2:/root/.m2/repository \
     --name "$CONTAINER_RUNTIME_NAME" \
@@ -34,6 +37,8 @@ docker run -d -it --rm \
     -e KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT \
     -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@"$CONTAINER_RUNTIME_NAME":9093 \
     -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER \
+    -e REPO_USERNAME \
+    -e REPO_TOKEN \
     "$( "$SH_DIR/dev-image-tag" )"
 
 
