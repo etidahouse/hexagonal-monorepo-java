@@ -43,6 +43,14 @@ else
     echo "gateway - No Change detected."
 fi
 
+MONGODB_STORAGE_CHANGES_COUNT="$( git diff origin/main HEAD -- services/mongodb-storage/ | grep -cE '^\+\+\+' )" || true
+if [ "$MONGODB_STORAGE_CHANGES_COUNT" != "0" ]; then
+    echo "mongodb-storage - Change detected. Running build..."
+    "$PARENT_DIR/services/mongodb-storage/sh/build"
+else
+    echo "mongodb-storage - No Change detected."
+fi
+
 
 echo "Running integration testing ..."
 "$PARENT_DIR/services/integration-testing/sh/build"
