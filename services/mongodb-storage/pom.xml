@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>dev.begon.hexagonal</groupId>
+    <artifactId>mongodb-storage</artifactId>
+    <version>0.1.0</version>
+    <packaging>jar</packaging>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/etidahouse/hexagonal-monorepo-java</url>
+        </repository>
+    </distributionManagement>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <directory>${project.basedir}/build</directory>
+        <testSourceDirectory>tests</testSourceDirectory>
+		<finalName>mongodb-storage</finalName>
+    </build>
+
+    <repositories>
+        <!-- GitHub Maven package repository -->
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/etidahouse/hexagonal-monorepo-java</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        
+        <!-- Maven Central -->
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        
+        <dependency>
+            <groupId>dev.begon.hexagonal</groupId>
+            <artifactId>core-sdk</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+		<dependency>
+            <groupId>dev.begon.hexagonal</groupId>
+            <artifactId>mongodb-sdk</artifactId>
+            <version>0.6.1</version>
+        </dependency>
+
+		<dependency>
+            <groupId>dev.begon.hexagonal</groupId>
+            <artifactId>pubsub-sdk</artifactId>
+            <version>0.2.2</version>
+        </dependency>
+
+    </dependencies>
+</project>

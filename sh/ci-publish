@@ -18,7 +18,7 @@ fi
 TARGET_REF=${TARGET_REF:-origin/main}
 SOURCE_REF=${SOURCE_REF:-HEAD}
 
-# Check for changes in core-sdk
+
 CORE_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/core-sdk/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$CORE_SDK_CHANGES_COUNT" != "0" ]; then
     echo "core-sdk - Change detected. Running build..."
@@ -28,7 +28,6 @@ else
 fi
 
 
-# Check for changes in mongodb-sdk
 MONGODB_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/mongodb-sdk/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$MONGODB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "mongodb-sdk - Change detected. Running build..."
@@ -37,7 +36,6 @@ else
     echo "mongodb-sdk - No Change detected."
 fi
 
-# Check for changes in mongodb-sdk
 PUBSUB_SDK_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" packages/pubsub-sdk/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$PUBSUB_SDK_CHANGES_COUNT" != "0" ]; then
     echo "pubsub-sdk - Change detected. Running build..."
@@ -47,7 +45,6 @@ else
 fi
 
 
-# Check for changes in gateway
 GATEWAY_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/gateway/pom.xml | grep -cE '^\+\+\+' )" || true
 if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
     echo "gateway - Change detected. Running build..."
@@ -55,6 +52,16 @@ if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
 else
     echo "gateway - No Change detected."
 fi
+
+
+MONGODB_STORAGE_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/mongodb-storage/pom.xml | grep -cE '^\+\+\+' )" || true
+if [ "$MONGODB_STORAGE_CHANGES_COUNT" != "0" ]; then
+    echo "mongodb-storage - Change detected. Running build..."
+    "$PARENT_DIR/services/mongodb-storage/sh/publish"
+else
+    echo "mongodb-storage - No Change detected."
+fi
+
 
 echo "Running integration testing ..."
 "$PARENT_DIR/services/integration-testing/sh/build"
