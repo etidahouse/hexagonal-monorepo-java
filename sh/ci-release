@@ -27,3 +27,12 @@ if [ "$GATEWAY_CHANGES_COUNT" != "0" ]; then
 else
     echo "gateway - No Change detected."
 fi
+
+
+MONGODB_STORAGE_CHANGES_COUNT="$( git diff "$TARGET_REF" "$SOURCE_REF" services/mongodb-storage/pom.xml | grep -cE '^\+\+\+' )" || true
+if [ "$MONGODB_STORAGE_CHANGES_COUNT" != "0" ]; then
+    echo "mongodb-storage - Change detected. Build release..."
+    "$PARENT_DIR/services/mongodb-storage/sh/release"
+else
+    echo "mongodb-storage - No Change detected."
+fi
