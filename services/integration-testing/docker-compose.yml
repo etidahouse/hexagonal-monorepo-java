@@ -21,11 +21,14 @@ services:
       KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
       KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: "0@kafka:9093"
       KAFKA_CFG_CONTROLLER_LISTENER_NAMES: CONTROLLER
+    ports:
+      - 9092:9092
 
   gateway:
     image: openjdk:17
     depends_on: 
       - mongodb
+      - kafka
     environment:
       MONGODB_USER: mongodb_user
       MONGODB_PASSWORD: mongodb_password
@@ -37,6 +40,25 @@ services:
     volumes:
       - $INTEGRATION_TESTING_GATEWAY:/opt/gateway.jar
     command: java -jar /opt/gateway.jar
+
+  mongodb-storage:
+    image: openjdk:17
+    depends_on: 
+      - mongodb
+      - kafka
+    environment:
+      MONGODB_USER: mongodb_user
+      MONGODB_PASSWORD: mongodb_password
+      MONGODB_HOSTNAME: mongodb
+      MONGODB_DATABASE_NAME: gateway_db
+      MONGODB_PORT: 27017
+      KAFKA_HOST: kafka
+      KAFKA_PORT: 9092
+      KAFKA_GROUP_ID: kafka-group-id
+      KAFKA_TOPIC: users_topic
+    volumes:
+      - $INTEGRATION_TESTING_MONGODB_STORAGE:/opt/mongodb-storage.jar
+    command: java -jar /opt/mongodb-storage.jar
 
   tests:
     image: maven:3.8.5-openjdk-17-slim

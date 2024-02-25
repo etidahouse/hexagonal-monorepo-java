@@ -13,12 +13,17 @@ PARENT_DIR="$(dirname "$SH_DIR")"
 PROJECT_DIR="$(dirname "$(dirname "$(dirname "$SH_DIR")")")"
 
 GATEWAY="$(dirname "$PARENT_DIR")"/gateway/
+MONGODB_STORAGE="$(dirname "$PARENT_DIR")"/mongodb-storage/
 
 echo "Running gateway build ..."
 "$GATEWAY"sh/build
 
+echo "Running mongodb-storage build ..."
+"$MONGODB_STORAGE"sh/build
+
 echo "Settings env variables ..."
 export INTEGRATION_TESTING_GATEWAY="$GATEWAY"/build/gateway.jar
+export INTEGRATION_TESTING_MONGODB_STORAGE="$MONGODB_STORAGE"/build/mongodb-storage.jar
 export PARENT_DIR=$PARENT_DIR
 export PROJECT_DIR=$PROJECT_DIR
 export REPO_USERNAME=$REPO_USERNAME
