@@ -30,8 +30,8 @@ export REPO_USERNAME=$REPO_USERNAME
 export REPO_TOKEN=$REPO_TOKEN
 
 echo "Running integration env ..."
-docker-compose -f "$PARENT_DIR"/docker-compose.yml up --exit-code-from tests
+docker compose -f "$PARENT_DIR"/docker-compose.yml up --exit-code-from tests
 
 
 echo "Stopping integration env ..."
-docker-compose -f "$PARENT_DIR"/docker-compose.yml down
+docker compose -f "$PARENT_DIR"/docker-compose.yml down
